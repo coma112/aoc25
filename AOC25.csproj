@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FirstDay.cs" />
+    <Compile Include="ForthDay.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecondDay.cs" />
@@ -57,6 +58,7 @@
     <Content Include="txts\1.txt" />
     <Content Include="txts\2.txt" />
     <Content Include="txts\3.txt" />
+    <Content Include="txts\4.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

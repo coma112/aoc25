@@ -19,11 +19,15 @@ namespace AOC25 {
             Console.WriteLine(SecondDay.SecondDayB());
             Console.WriteLine("--- MÁSODIK ---");
             Console.WriteLine();
-            Console.WriteLine();
             Console.WriteLine("--- HARMADIK ---");
             Console.WriteLine(ThirdDay.ThirdDayA());
             Console.WriteLine(ThirdDay.ThirdDayB());
             Console.WriteLine("--- HARMADIK ---");
+            Console.WriteLine();
+            Console.WriteLine("--- NEGYEDIK ---");
+            Console.WriteLine(ForthDay.ForthDayA());
+            Console.WriteLine(ForthDay.ForthDayB());
+            Console.WriteLine("--- NEGYEDIK ---");
             Console.WriteLine();
         }
     }
