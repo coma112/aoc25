@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FifthDay.cs" />
     <Compile Include="FirstDay.cs" />
     <Compile Include="ForthDay.cs" />
     <Compile Include="Program.cs" />
@@ -59,6 +60,7 @@
     <Content Include="txts\2.txt" />
     <Content Include="txts\3.txt" />
     <Content Include="txts\4.txt" />
+    <Content Include="txts\5.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,6 +29,11 @@ namespace AOC25 {
             Console.WriteLine(ForthDay.ForthDayB());
             Console.WriteLine("--- NEGYEDIK ---");
             Console.WriteLine();
+            Console.WriteLine("--- ÖTÖDIK ---");
+            Console.WriteLine(FifthDay.FifthDayA());
+            Console.WriteLine(FifthDay.FifthDayB());
+            Console.WriteLine("--- ÖTÖDIK ---");
+            Console.WriteLine();
         }
     }
 }
