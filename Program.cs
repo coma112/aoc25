@@ -34,6 +34,11 @@ namespace AOC25 {
             Console.WriteLine(FifthDay.FifthDayB());
             Console.WriteLine("--- ÖTÖDIK ---");
             Console.WriteLine();
+            Console.WriteLine("--- HATODIK ---");
+            Console.WriteLine(SixthDay.SixthDayA());
+            Console.WriteLine(SixthDay.SixthDayB());
+            Console.WriteLine("--- HATODIK ---");
+            Console.WriteLine();
         }
     }
 }
