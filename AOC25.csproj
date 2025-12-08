@@ -50,6 +50,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecondDay.cs" />
+    <Compile Include="SeventhDay.cs" />
     <Compile Include="SixthDay.cs" />
     <Compile Include="ThirdDay.cs" />
     <Compile Include="utils\AOCUtils.cs" />
@@ -63,6 +64,8 @@
     <Content Include="txts\3.txt" />
     <Content Include="txts\4.txt" />
     <Content Include="txts\5.txt" />
+    <Content Include="txts\6.txt" />
+    <Content Include="txts\7.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

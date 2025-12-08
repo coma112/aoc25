@@ -87,91 +87,6 @@ namespace AOC25 {
             return problems;
         }
 
-        static List<(List<BigInteger> numbers, char op)> ParseRightToLeft(string[] lines) {
-            int N = lines.Length;
-            int maxLen = lines.Max(l => l.Length);
-
-            string[] nLines = lines.Select(l => l.PadRight(maxLen)).ToArray();
-
-            var problems = new List<(List<BigInteger> numbers, char op)>();
-
-            int col = maxLen - 1;
-            while (col >= 0) {
-                bool allSpaces = true;
-                for (int r = 0; r < N; r++) {
-                    if (nLines[r][col] != ' ') {
-                        allSpaces = false;
-                        break;
-                    }
-                }
-                if (allSpaces) {
-                    col--;
-                    continue;
-                }
-
-                int startCol = col;
-                while (col >= 0) {
-                    bool hasContent = false;
-                    for (int r = 0; r < N; r++) {
-                        char ch = nLines[r][col];
-                        if (char.IsDigit(ch) || ch == '+' || ch == '*') {
-                            hasContent = true;
-                            break;
-                        }
-                    }
-                    if (!hasContent) break;
-                    col--;
-                }
-                int leftCol = col + 1;
-                int width = startCol - leftCol + 1;
-
-                char[,] block = new char[N, width];
-                for (int r = 0; r < N; r++) {
-                    for (int c = 0; c < width; c++) {
-                        block[r, c] = nLines[r][leftCol + c];
-                    }
-                }
-
-                int opCol = -1;
-                for (int c = 0; c < width; c++) {
-                    char ch = block[N - 1, c];
-                    if (ch == '+' || ch == '*') {
-                        opCol = c;
-                        break;
-                    }
-                }
-                if (opCol == -1) {
-                    continue;
-                }
-                char op = block[N - 1, opCol];
-                var numbers = new List<BigInteger>();
-
-                for (int c = width - 1; c >= 0; c--) {
-                    if (c == opCol) continue;
-
-                    var sb = new StringBuilder();
-                    for (int r = 0; r < N - 1; r++) {
-                        char ch = block[r, c];
-                        if (char.IsDigit(ch)) {
-                            sb.Append(ch);
-                        }
-                    }
-
-                    if (sb.Length == 0) {
-                        numbers.Add(BigInteger.Zero);
-                    } else {
-                        numbers.Add(BigInteger.Parse(sb.ToString()));
-                    }
-                }
-
-                if (numbers.Count > 0) {
-                    problems.Add((numbers, op));
-                }
-            }
-
-            return problems;
-        }
-
         static long SolveProblem(List<long> numbers, char op) {
             long result = numbers[0];
 
@@ -182,17 +97,6 @@ namespace AOC25 {
 
             return result;
         }
-
-        static BigInteger SolveProblemBigInt(List<BigInteger> numbers, char op) {
-            if (numbers == null || numbers.Count == 0) return BigInteger.Zero;
-            BigInteger result = numbers[0];
-            for (int i = 1; i < numbers.Count; i++) {
-                if (op == '+') result += numbers[i];
-                else result *= numbers[i];
-            }
-            return result;
-        }
-
 
         public static long SixthDayA() {
             string[] lines = AOCUtils.ReadInput("6");
@@ -210,14 +114,75 @@ namespace AOC25 {
 
         public static BigInteger SixthDayB() {
             string[] lines = AOCUtils.ReadInput("6");
-            var problems = ParseRightToLeft(lines);
-            BigInteger grandTotal = BigInteger.Zero;
 
-            foreach (var problem in problems) {
-                BigInteger r = SolveProblemBigInt(problem.numbers, problem.op);
-                grandTotal += r;
+            if (lines.Length == 0) return BigInteger.Zero;
+
+            int width = lines[0].Length;
+
+            for (int i = 1; i < lines.Length; i++) {
+                if (lines[i].Length > width) {
+                    width = lines[i].Length;
+                }
             }
-            return grandTotal;
+
+            string[] columns = new string[width];
+            for (int i = 0; i < width; i++) {
+                columns[i] = "";
+            }
+
+            for (int row = 0; row < lines.Length; row++) {
+                for (int col = 0; col < lines[row].Length; col++) {
+                    columns[col] += lines[row][col];
+                }
+
+                for (int col = lines[row].Length; col < width; col++) {
+                    columns[col] += ' ';
+                }
+            }
+
+            BigInteger total = BigInteger.Zero;
+            BigInteger currentSum = BigInteger.Zero;
+            char currentOp = '+';
+
+            for (int i = 0; i < columns.Length; i++) {
+                string col = columns[i];
+                string trimmed = col.Trim();
+
+                if (trimmed.Length > 0) {
+                    char lastChar = trimmed[trimmed.Length - 1];
+                    if (lastChar == '+' || lastChar == '*') {
+                        total += currentSum;
+                        currentOp = lastChar;
+
+                        if (currentOp == '+') {
+                            currentSum = BigInteger.Zero;
+                        } else {
+                            currentSum = BigInteger.One;
+                        }
+                    }
+                }
+
+                string numStr = "";
+                for (int j = 0; j < trimmed.Length; j++) {
+                    if (char.IsDigit(trimmed[j])) {
+                        numStr += trimmed[j];
+                    }
+                }
+
+                if (numStr.Length > 0) {
+                    BigInteger num = BigInteger.Parse(numStr);
+
+                    if (currentOp == '+') {
+                        currentSum += num;
+                    } else {
+                        currentSum *= num;
+                    }
+                }
+            }
+
+            total += currentSum;
+
+            return total;
         }
     }
 }
